@@ -19,7 +19,7 @@ export default function Navbar() {
           to="/"
           className="text-xl font-bold text-emerald-900"
         >
-          Radytia
+          aoerascand
         </Link>
 
         {/* DESKTOP MENU */}

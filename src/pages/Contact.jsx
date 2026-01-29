@@ -7,67 +7,47 @@ export default function Contact() {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="w-full max-w-xl bg-white rounded-xl shadow-lg p-8"
+        className="w-full max-w-xl bg-white rounded-xl shadow-lg p-10 text-center"
       >
-        <h1 className="text-3xl font-bold text-emerald-900 mb-2 text-center">
+        <h1 className="text-3xl font-bold text-emerald-900 mb-3">
           Contact Me
         </h1>
 
-        <p className="text-emerald-700 text-center mb-8">
-          Let’s work together or just say hello 👋
+        <p className="text-emerald-700 mb-10">
+          Feel free to reach out for collaboration, projects, or inquiries.
         </p>
 
-        <form className="space-y-5">
-          {/* NAME */}
-          <div>
-            <label className="block text-sm font-medium text-emerald-800 mb-1">
-              Name
-            </label>
-            <input
-              type="text"
-              placeholder="Your name"
-              className="w-full px-4 py-2 border border-emerald-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-700"
-            />
-          </div>
-
+        {/* CONTACT INFO */}
+        <div className="space-y-6">
           {/* EMAIL */}
-          <div>
-            <label className="block text-sm font-medium text-emerald-800 mb-1">
-              Email
-            </label>
-            <input
-              type="email"
-              placeholder="you@email.com"
-              className="w-full px-4 py-2 border border-emerald-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-700"
-            />
+          <div className="p-5 border border-emerald-200 rounded-lg">
+            <p className="text-sm text-emerald-600 mb-1">Email</p>
+            <a
+              href="mailto:iniraditya15@email.com"
+              className="text-lg font-semibold text-emerald-900 hover:underline"
+            >
+              iniraditya15@email.com
+            </a>
           </div>
 
-          {/* MESSAGE */}
-          <div>
-            <label className="block text-sm font-medium text-emerald-800 mb-1">
-              Message
-            </label>
-            <textarea
-              rows="4"
-              placeholder="Your message..."
-              className="w-full px-4 py-2 border border-emerald-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-700"
-            />
+          {/* WHATSAPP */}
+          <div className="p-5 border border-emerald-200 rounded-lg">
+            <p className="text-sm text-emerald-600 mb-1">WhatsApp</p>
+            <a
+              href="https://wa.me/6285796633875"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-lg font-semibold text-emerald-900 hover:underline"
+            >
+              +62 857-9663-3875
+            </a>
           </div>
-
-          {/* BUTTON */}
-          <button
-            type="submit"
-            className="w-full py-3 bg-emerald-900 text-white rounded-md hover:bg-emerald-800 transition font-medium"
-          >
-            Send Message
-          </button>
-        </form>
-
-        {/* SOCIAL */}
-        <div className="mt-8 text-center text-sm text-emerald-700">
-          <p>Email: <span className="font-medium">radytia@email.com</span></p>
-          <p>GitHub: <span className="font-medium">github.com/radytia</span></p>
         </div>
+
+        {/* FOOT NOTE */}
+        <p className="mt-10 text-sm text-emerald-600">
+          I usually respond within 24 hours.
+        </p>
       </motion.div>
     </section>
   );
