@@ -18,16 +18,10 @@ const SOFT_SKILLS = [
 
 const STUDY = [
   {
-    school: "Universitas Contoh",
-    major: "Informatics Engineering",
-    year: "2021 – Present",
+    school: "SMKN 64 Jakarta",
+    major: "Rekayasa Perangkat Lunak",
+    year: "2023 – Present",
     description: "Focused on web development, software engineering, and UI/UX.",
-  },
-  {
-    school: "Online Courses & Self Learning",
-    major: "Frontend Development",
-    year: "2020 – Present",
-    description: "React, Tailwind CSS, JavaScript, Git, and real-world projects.",
   },
 ];
 
