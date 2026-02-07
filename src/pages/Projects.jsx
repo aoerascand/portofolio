@@ -1,66 +1,145 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Github, ExternalLink } from "lucide-react";
 
 const PROJECTS = [
   {
-    title: "Portfolio Website",
+    title: "Fintech",
     description:
-      "Personal portfolio website built with React, Tailwind CSS, and Framer Motion.",
+      "Financial Technology built with Laravel,PHP, and Database MySql.",
     images: [
-      "/projects/portfolio/1.png",
-      "/projects/portfolio/2.png",
-      "/projects/portfolio/3.png",
+     `${import.meta.env.BASE_URL}project/fintech/1.png`,
+     `${import.meta.env.BASE_URL}project/fintech/2.png`,
+     `${import.meta.env.BASE_URL}project/fintech/3.png`,
     ],
-    tech: ["React", "Tailwind", "Framer Motion"],
-    github: "#",
-    demo: "#",
+    tech: ["Laravel", "PHP", "Blade", "MySQL"],
+    github: "https://github.com/aoerascand/fintech",
+    demo: "https://yourportfolio.com",
   },
   {
-    title: "E-Commerce Website",
+    title: "Kelola-Resto",
     description:
-      "Simple e-commerce UI with product listing and responsive layout.",
+      "restaurant cashier with CRUD features and restaurant reports",
     images: [
-      "/projects/ecommerce/1.png",
-      "/projects/ecommerce/2.png",
+     `${import.meta.env.BASE_URL}project/resto/1.png`, 
+       ],
+    tech: ["Laravel", "PHP", "Blade", "MySQL"],
+    github: "https://github.com/aoerascand/kelola-resto",
+    demo: "https://yourecommerce.com",
+  },
+  {
+    title: "Coming soon...",
+    description:
+      "---",
+    images: [
+      "https://placehold.co/800x500/10b981/white?text=coming+soon",
+      "https://placehold.co/800x500/059669/white?text=coming+soon",
     ],
-    tech: ["React", "Tailwind"],
-    github: "#",
-    demo: "#",
+    tech: ["---"],
+    github: "https://github.com/yourusername/ecommerce",
+    demo: "https://yourecommerce.com",
+  },
+  {
+    title: "coming soon...",
+    description:
+      "---",
+    images: [
+      "https://placehold.co/800x500/10b981/white?text=coming+soon",
+      "https://placehold.co/800x500/059669/white?text=coming+soon",
+    ],
+    tech: ["---"],
+    github: "https://github.com/yourusername/ecommerce",
+    demo: "https://yourecommerce.com",
   },
 ];
 
-function ImageSlider({ images }) {
+function ImageSlider({ images, interval = 4000 }) {
   const [index, setIndex] = useState(0);
+  const timerRef = useRef(null);
 
-  const prev = () =>
+  const prev = () => {
+    resetTimer();
     setIndex(index === 0 ? images.length - 1 : index - 1);
-  const next = () =>
+  };
+
+  const next = () => {
+    resetTimer();
     setIndex(index === images.length - 1 ? 0 : index + 1);
+  };
+
+  const resetTimer = () => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+  };
+
+  /* AUTO SLIDE */
+  useEffect(() => {
+    if (images.length <= 1) return;
+
+    timerRef.current = setInterval(() => {
+      setIndex((prev) =>
+        prev === images.length - 1 ? 0 : prev + 1
+      );
+    }, interval);
+
+    return () => clearInterval(timerRef.current);
+  }, [images.length, interval]);
+
+  /* SWIPE HANDLER */
+  const handleDragEnd = (_, info) => {
+    resetTimer();
+    if (info.offset.x < -100) next();
+    if (info.offset.x > 100) prev();
+  };
 
   return (
-    <div className="relative w-full h-48 overflow-hidden rounded-lg">
-      <img
+    <div className="relative w-full aspect-[16/9] overflow-hidden rounded-lg bg-emerald-100 group">
+      <motion.img
+        key={index}
         src={images[index]}
         alt="Project preview"
-        className="w-full h-full object-cover"
+        className="w-full h-full object-cover cursor-grab active:cursor-grabbing"
+        drag="x"
+        dragConstraints={{ left: 0, right: 0 }}
+        dragElastic={0.15}
+        onDragEnd={handleDragEnd}
+        initial={{ opacity: 0, x: 50 }}
+        animate={{ opacity: 1, x: 0 }}
+        exit={{ opacity: 0, x: -50 }}
+        transition={{ duration: 0.35 }}
       />
 
       {images.length > 1 && (
         <>
+          {/* PREV */}
           <button
             onClick={prev}
-            className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/60 text-white p-1 rounded-full"
+            className="absolute left-2 top-1/2 -translate-y-1/2 bg-white p-1.5 rounded-full shadow opacity-0 group-hover:opacity-100 transition"
           >
             <ChevronLeft size={18} />
           </button>
 
+          {/* NEXT */}
           <button
             onClick={next}
-            className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/60 text-white p-1 rounded-full"
+            className="absolute right-2 top-1/2 -translate-y-1/2 bg-white p-1.5 rounded-full shadow opacity-0 group-hover:opacity-100 transition"
           >
             <ChevronRight size={18} />
           </button>
+
+          {/* DOTS */}
+          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
+            {images.map((_, i) => (
+              <div
+                key={i}
+                className={`h-1.5 rounded-full transition-all ${
+                  i === index ? "bg-white w-6" : "bg-white/50 w-1.5"
+                }`}
+              />
+            ))}
+          </div>
         </>
       )}
     </div>
@@ -71,9 +150,19 @@ export default function Projects() {
   return (
     <section className="min-h-screen px-6 md:px-24 py-20 bg-emerald-50">
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl font-bold text-center text-emerald-900 mb-12">
-          Projects
-        </h1>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
+        >
+          <h1 className="text-4xl font-bold text-emerald-900 mb-3">
+            Projects
+          </h1>
+          <p className="text-emerald-700">
+            A collection of projects I've built
+          </p>
+        </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {PROJECTS.map((project, idx) => (
@@ -83,49 +172,47 @@ export default function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="bg-white rounded-xl shadow-md overflow-hidden"
+              className="bg-white rounded-xl shadow-lg overflow-hidden"
             >
-              {/* SLIDER */}
               <ImageSlider images={project.images} />
 
-              {/* CONTENT */}
               <div className="p-6">
                 <h3 className="text-xl font-bold text-emerald-900 mb-2">
                   {project.title}
                 </h3>
 
-                <p className="text-emerald-700 text-sm mb-4">
+                <p className="text-emerald-700 mb-4">
                   {project.description}
                 </p>
 
-                {/* TECH */}
-                <div className="flex flex-wrap gap-2 mb-4">
+                <div className="flex flex-wrap gap-2 mb-6">
                   {project.tech.map((tech, i) => (
                     <span
                       key={i}
-                      className="text-xs px-2 py-1 bg-emerald-100 text-emerald-800 rounded-full"
+                      className="text-xs px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full"
                     >
                       {tech}
                     </span>
                   ))}
                 </div>
 
-                {/* LINKS */}
-                <div className="flex gap-4">
+                <div className="flex gap-3">
                   <a
                     href={project.github}
                     target="_blank"
-                    className="flex items-center gap-1 text-sm text-emerald-900 hover:underline"
+                    rel="noopener noreferrer"
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 border-2 border-emerald-900 text-emerald-900 rounded-lg hover:bg-emerald-900 hover:text-white transition"
                   >
-                    <Github size={16} /> GitHub
+                    <Github size={16} /> Code
                   </a>
 
                   <a
                     href={project.demo}
                     target="_blank"
-                    className="flex items-center gap-1 text-sm text-emerald-900 hover:underline"
+                    rel="noopener noreferrer"
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-emerald-900 text-white rounded-lg hover:bg-emerald-800 transition"
                   >
-                    <ExternalLink size={16} /> Live Demo
+                    <ExternalLink size={16} /> Demo
                   </a>
                 </div>
               </div>
