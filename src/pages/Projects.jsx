@@ -14,7 +14,7 @@ const PROJECTS = [
     ],
     tech: ["Laravel", "PHP", "Blade", "MySQL"],
     github: "https://github.com/aoerascand/fintech",
-    demo: "https://yourportfolio.com",
+    demo: "https://fintech.com",
   },
   {
     title: "Kelola-Resto",
@@ -22,22 +22,25 @@ const PROJECTS = [
       "restaurant cashier with CRUD features and restaurant reports",
     images: [
      `${import.meta.env.BASE_URL}project/resto/1.png`, 
+     `${import.meta.env.BASE_URL}project/resto/2.jpeg`,
        ],
     tech: ["Laravel", "PHP", "Blade", "MySQL"],
     github: "https://github.com/aoerascand/kelola-resto",
-    demo: "https://yourecommerce.com",
+    demo: "https://restaurant.com",
   },
   {
-    title: "Coming soon...",
+    title: "Website Aspirasi",
     description:
-      "---",
+      "The Aspiration website was created to convey students' aspirations to the school",
     images: [
-      "https://placehold.co/800x500/10b981/white?text=coming+soon",
-      "https://placehold.co/800x500/059669/white?text=coming+soon",
+       `${import.meta.env.BASE_URL}project/aspirasi/1.png`, 
+        `${import.meta.env.BASE_URL}project/aspirasi/2.png`,
+        `${import.meta.env.BASE_URL}project/aspirasi/3.png`,
+        `${import.meta.env.BASE_URL}project/aspirasi/4.png`,
     ],
-    tech: ["---"],
-    github: "https://github.com/yourusername/ecommerce",
-    demo: "https://yourecommerce.com",
+    tech: ["Laravel", "PHP", "Blade", "MySQL"],
+    github: "https://github.com/aoerascand/aspirasi",
+    demo: "https://aspirasi.com",  
   },
   {
     title: "coming soon...",
