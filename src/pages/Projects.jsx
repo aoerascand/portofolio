@@ -43,16 +43,18 @@ const PROJECTS = [
     demo: "https://aspirasi.com",  
   },
   {
-    title: "coming soon...",
+    title: "Website Company",
     description:
-      "---",
+      "A company website is a platform that presents comprehensive information about a company and includes a dashboard feature for managing and organizing data efficiently.",
     images: [
-      "https://placehold.co/800x500/10b981/white?text=coming+soon",
-      "https://placehold.co/800x500/059669/white?text=coming+soon",
+        `${import.meta.env.BASE_URL}project/company/1.png`, 
+        `${import.meta.env.BASE_URL}project/company/2.png`,
+        `${import.meta.env.BASE_URL}project/company/3.png`,
+        `${import.meta.env.BASE_URL}project/company/4.png`,
     ],
-    tech: ["---"],
-    github: "https://github.com/yourusername/ecommerce",
-    demo: "https://yourecommerce.com",
+    tech: ["React", "Laravel", "PHP", "JavaScript", "MySQL"],
+    github: "https://github.com/aoerascand/Company-Project",
+    demo: "https://company.com",
   },
 ];
 
